@@ -2,6 +2,7 @@ package com.example.admin.ssuifinalproject;
 
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -62,6 +63,12 @@ public class TestActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        Log.d(LOG_TAG, Build.CPU_ABI);
+        Log.d(LOG_TAG, Build.CPU_ABI2);
+
+
     }
 
     private void startRecording() {
@@ -134,7 +141,8 @@ public class TestActivity extends AppCompatActivity {
 
     private void analyzeBeat() {
 //        File audioFile = new File(savedFileName);
-        new AndroidFFMPEGLocator(getApplicationContext());
+//        new AndroidFFMPEGLocator(getApplicationContext());
+        new AndroidFFMPEGLocator(this);
 
         int rate = 44100;
         int size = 512;
