@@ -16,6 +16,7 @@ import java.util.Locale;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.beatroot.BeatRootOnsetEventHandler;
+import be.tarsos.dsp.io.android.AndroidFFMPEGLocator;
 import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.onsets.ComplexOnsetDetector;
 import be.tarsos.dsp.onsets.OnsetHandler;
@@ -133,10 +134,13 @@ public class TestActivity extends AppCompatActivity {
 
     private void analyzeBeat() {
 //        File audioFile = new File(savedFileName);
+        new AndroidFFMPEGLocator(getApplicationContext());
+
         int rate = 44100;
         int size = 512;
         int overlap = 256;
         AudioDispatcher dispatcher = AudioDispatcherFactory.fromPipe(savedFileName, rate, size, overlap);
+
 
         ComplexOnsetDetector detector = new ComplexOnsetDetector(size);
         BeatRootOnsetEventHandler handler = new BeatRootOnsetEventHandler();
