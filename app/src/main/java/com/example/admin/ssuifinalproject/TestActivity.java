@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -26,6 +25,9 @@ public class TestActivity extends AppCompatActivity {
     private Button recordButton;
     private MediaRecorder recorder;
     private MediaPlayer player;
+
+    // alternate recorder class for .wav files
+    private ExtAudioRecorder extAudioRecorder;
 
     private final String waitingText = "Record";
     private final String recordingText = "Stop";
@@ -62,19 +64,29 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void startRecording() {
-        recorder = new MediaRecorder();
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        recorder.setOutputFile(fileName());
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+//        recorder = new MediaRecorder();
+//        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+//        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+//        recorder.setOutputFile(fileName());
+//        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+//
+//        try {
+//            recorder.prepare();
+//        } catch (IOException e) {
+//            Log.e(LOG_TAG, "startRecording prepare() failed");
+//        }
+//
+//        recorder.start();
 
-        try {
-            recorder.prepare();
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "startRecording prepare() failed");
-        }
 
-        recorder.start();
+        //// USING ExtAudioRecorder for .wav files
+        // Start recording
+//        extAudioRecorder = ExtAudioRecorder.getInstance(true);	  // Compressed recording (AMR)
+        extAudioRecorder = ExtAudioRecorder.getInstance(false); // Uncompressed recording (WAV)
+
+        extAudioRecorder.setOutputFile(fileName());
+        extAudioRecorder.prepare();
+        extAudioRecorder.start();
     }
 
     private String fileName() {
@@ -85,7 +97,8 @@ public class TestActivity extends AppCompatActivity {
         // Right now the file name is based on a time stamp
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.US);
         String timeStamp = formatter.format(new Date());
-        String fileExtension = ".3gp";
+//        String fileExtension = ".3gp";
+        String fileExtension = ".wav"; // .wav with extRecorder
         String fileName = timeStamp + fileExtension;
 
         // If the app folder doesn't exist, create it
@@ -106,9 +119,16 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void stopRecording() {
-        recorder.stop();
-        recorder.release();
-        recorder = null;
+//        recorder.stop();
+//        recorder.release();
+//        recorder = null;
+
+
+        // EXT RECORDER CODE
+        // Stop recording
+        extAudioRecorder.stop();
+        extAudioRecorder.release();
+        extAudioRecorder = null;
     }
 
     private void analyzeBeat() {
