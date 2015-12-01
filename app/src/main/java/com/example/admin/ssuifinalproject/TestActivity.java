@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,12 +47,13 @@ public class TestActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(LOG_TAG, "Clicked record button");
 
-                if(isRecording) {
+                if (isRecording) {
+                    isRecording = false;
                     recordButton.setText(waitingText);
                     stopRecording();
-                    // TODO analyze the recorded file
-                }
-                else {
+                    analyzeBeat();
+                } else {
+                    isRecording = true;
                     recordButton.setText(recordingText);
                     startRecording();
                 }
@@ -76,16 +78,31 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private String fileName() {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String externalDirectory = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String appFolderName = "SSUI";
+        String fullDirectory = externalDirectory + File.separator + appFolderName;
 
         // Right now the file name is based on a time stamp
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.US);
         String timeStamp = formatter.format(new Date());
-
         String fileExtension = ".3gp";
+        String fileName = timeStamp + fileExtension;
 
-        savedFileName = path + timeStamp + fileExtension;
-        return path + timeStamp + fileExtension;
+        // If the app folder doesn't exist, create it
+        File folder = new File(fullDirectory);
+        if (folder.mkdir() || folder.isDirectory()) {
+            // successfully created directory
+        }
+        else {
+            Log.d(LOG_TAG, "fileName() failed to create folder");
+        }
+
+        String directoryAndFile = fullDirectory + File.separator + fileName;
+
+        Log.d(LOG_TAG, directoryAndFile);
+        savedFileName = directoryAndFile; // temp hard-code-saving it here
+
+        return directoryAndFile;
     }
 
     private void stopRecording() {
@@ -104,6 +121,9 @@ public class TestActivity extends AppCompatActivity {
         ComplexOnsetDetector detector = new ComplexOnsetDetector(size);
         BeatRootOnsetEventHandler handler = new BeatRootOnsetEventHandler();
         detector.setHandler(handler);
+
+        dispatcher.addAudioProcessor(detector);
+        dispatcher.run();
 
         handler.trackBeats(new OnsetHandler() {
             @Override
