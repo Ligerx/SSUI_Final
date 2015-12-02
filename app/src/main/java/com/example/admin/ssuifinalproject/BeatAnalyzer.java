@@ -13,6 +13,7 @@ import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.onsets.ComplexOnsetDetector;
 import be.tarsos.dsp.onsets.OnsetHandler;
 
+// FIXME can I nudge the BPM towards the right #? Right now it sometimes is a multiple of the original.
 public class BeatAnalyzer {
 
     private static final String TAG = "BeatAnalyzer";

@@ -8,9 +8,17 @@ import android.widget.TextView;
 public class BPMAsyncTask extends AsyncTask<String, Void, BeatAnalyzer> {
 
     private Context context;
+    private TextView textView;
 
     public BPMAsyncTask(Context context) {
         this.context = context;
+        this.textView = (TextView) ((Activity) context).findViewById(R.id.textView);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        textView.setText("Processing...");
     }
 
     protected BeatAnalyzer doInBackground(String... args) {
@@ -31,7 +39,6 @@ public class BPMAsyncTask extends AsyncTask<String, Void, BeatAnalyzer> {
 
     protected void onPostExecute(BeatAnalyzer beatAnalyzer) {
 //        showDialog("Downloaded " + result + " bytes");
-        TextView textView = (TextView) ((Activity) context).findViewById(R.id.textView);
 
         textView.setText("Median BPM: " + beatAnalyzer.getMedianBPM());
 
