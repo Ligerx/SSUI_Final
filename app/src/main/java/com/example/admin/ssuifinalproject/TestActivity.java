@@ -12,6 +12,8 @@ import android.widget.Button;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -140,6 +142,8 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void analyzeBeat() {
+        Log.d(LOG_TAG, "analyzeBeat() should be running");
+
 //        File audioFile = new File(savedFileName);
 //        new AndroidFFMPEGLocator(getApplicationContext());
         new AndroidFFMPEGLocator(this);
@@ -157,36 +161,56 @@ public class TestActivity extends AppCompatActivity {
         dispatcher.addAudioProcessor(detector);
         dispatcher.run();
 
+        Log.d(LOG_TAG, "Right after running beat detection");
+
+        final ArrayList<Double> times = new ArrayList<Double>();
+
         handler.trackBeats(new OnsetHandler() {
             @Override
             public void handleOnset(double time, double salience) {
                 Log.d(LOG_TAG, String.valueOf(time));
+                times.add(time);
             }
         });
+
+        calculateBPM(times);
     }
 
-//    public boolean run(String... args) throws UnsupportedAudioFileException, IOException {
-//        String inputFile = args[1];
-//        File audioFile = new File(inputFile);
-//        int rate = 44100;
-//        int size = 512;
-//        int overlap = 256;
-//        AudioDispatcher dispatcher = AudioDispatcherFactory.fromFile(audioFile, rate, size, overlap);
-//
-//        ComplexOnsetDetector detector = new ComplexOnsetDetector(size);
-//        BeatRootOnsetEventHandler handler = new BeatRootOnsetEventHandler();
-//        detector.setHandler(handler);
-//
-//        dispatcher.addAudioProcessor(detector);
-//        dispatcher.run();
-//
-//        handler.trackBeats(this);
-//
-//        return true;
-//    }
-//
-//    @Override
-//    public void handleOnset(double time, double salience) {
-//        System.out.println(time);
-//    }
+    private void calculateBPM(ArrayList<Double> times) {
+        // Calculate the difference between the beat times
+        ArrayList<Double> intervals = new ArrayList<>();
+        for(int i = 1; i < times.size(); i++) { // skip the first value
+            double previous = times.get(i - 1);
+            double current = times.get(i);
+
+            double difference = current - previous;
+            Log.d(LOG_TAG, String.valueOf(difference));
+
+            intervals.add(difference);
+        }
+
+        // Calculate median bpm I guess
+        ArrayList<Double> sortedIntervals = new ArrayList<>(intervals); // copy because why not
+        Collections.sort(sortedIntervals); // in place sort
+
+        double medianInterval = median(sortedIntervals);
+        Log.d(LOG_TAG, "Median interval: " + String.valueOf(medianInterval));
+
+        Log.d(LOG_TAG, "Median BPM: " + String.valueOf(timeToBPM(medianInterval)));
+    }
+
+    private double median(ArrayList<Double> m) {
+        int middle = m.size()/2;
+        if (m.size()%2 == 1) {
+            return m.get(middle);
+        } else {
+            return (m.get(middle-1) + m.get(middle)) / 2.0;
+        }
+    }
+
+    private double timeToBPM(double seconds) {
+        // x (bpm) = 1 (beat) / minute (60 seconds)
+        // x = 1 * 60sec / seconds
+        return 60.0 / seconds;
+    }
 }
