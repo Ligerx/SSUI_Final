@@ -2,7 +2,6 @@ package com.example.admin.ssuifinalproject;
 
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -65,30 +64,9 @@ public class TestActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-        Log.d(LOG_TAG, Build.CPU_ABI);
-        Log.d(LOG_TAG, Build.CPU_ABI2);
-
-
     }
 
     private void startRecording() {
-//        recorder = new MediaRecorder();
-//        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-//        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-//        recorder.setOutputFile(fileName());
-//        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-//
-//        try {
-//            recorder.prepare();
-//        } catch (IOException e) {
-//            Log.e(LOG_TAG, "startRecording prepare() failed");
-//        }
-//
-//        recorder.start();
-
-
         //// USING ExtAudioRecorder for .wav files
         // Start recording
 //        extAudioRecorder = ExtAudioRecorder.getInstance(true);	  // Compressed recording (AMR)
@@ -129,11 +107,6 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void stopRecording() {
-//        recorder.stop();
-//        recorder.release();
-//        recorder = null;
-
-
         // EXT RECORDER CODE
         // Stop recording
         extAudioRecorder.stop();
@@ -144,15 +117,12 @@ public class TestActivity extends AppCompatActivity {
     private void analyzeBeat() {
         Log.d(LOG_TAG, "analyzeBeat() should be running");
 
-//        File audioFile = new File(savedFileName);
-//        new AndroidFFMPEGLocator(getApplicationContext());
-        new AndroidFFMPEGLocator(this);
+        new AndroidFFMPEGLocator(this); // gets the FFMEG decoder for TarsosDSP
 
         int rate = 44100;
         int size = 512;
         int overlap = 256;
         AudioDispatcher dispatcher = AudioDispatcherFactory.fromPipe(savedFileName, rate, size, overlap);
-
 
         ComplexOnsetDetector detector = new ComplexOnsetDetector(size);
         BeatRootOnsetEventHandler handler = new BeatRootOnsetEventHandler();
@@ -160,8 +130,6 @@ public class TestActivity extends AppCompatActivity {
 
         dispatcher.addAudioProcessor(detector);
         dispatcher.run();
-
-        Log.d(LOG_TAG, "Right after running beat detection");
 
         final ArrayList<Double> times = new ArrayList<Double>();
 
