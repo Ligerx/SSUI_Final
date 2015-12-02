@@ -36,7 +36,7 @@ public class TestActivity extends AppCompatActivity {
     private final String recordingText = "Stop";
     private boolean isRecording = false;
 
-    private static final String LOG_TAG = "TestActivity";
+    private static final String TAG = "TestActivity";
 
     String savedFileName; // path to the just recorded audio file
 
@@ -50,7 +50,7 @@ public class TestActivity extends AppCompatActivity {
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(LOG_TAG, "Clicked record button");
+                Log.d(TAG, "Clicked record button");
 
                 if (isRecording) {
                     isRecording = false;
@@ -95,12 +95,12 @@ public class TestActivity extends AppCompatActivity {
             // successfully created directory
         }
         else {
-            Log.d(LOG_TAG, "fileName() failed to create folder");
+            Log.d(TAG, "fileName() failed to create folder");
         }
 
         String directoryAndFile = fullDirectory + File.separator + fileName;
 
-        Log.d(LOG_TAG, directoryAndFile);
+        Log.d(TAG, directoryAndFile);
         savedFileName = directoryAndFile; // temp hard-code-saving it here
 
         return directoryAndFile;
@@ -115,7 +115,7 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void analyzeBeat() {
-        Log.d(LOG_TAG, "analyzeBeat() should be running");
+        Log.d(TAG, "analyzeBeat() should be running");
 
         new AndroidFFMPEGLocator(this); // gets the FFMEG decoder for TarsosDSP
 
@@ -136,7 +136,7 @@ public class TestActivity extends AppCompatActivity {
         handler.trackBeats(new OnsetHandler() {
             @Override
             public void handleOnset(double time, double salience) {
-                Log.d(LOG_TAG, String.valueOf(time));
+                Log.d(TAG, String.valueOf(time));
                 times.add(time);
             }
         });
@@ -152,7 +152,7 @@ public class TestActivity extends AppCompatActivity {
             double current = times.get(i);
 
             double difference = current - previous;
-            Log.d(LOG_TAG, String.valueOf(difference));
+            Log.d(TAG, String.valueOf(difference));
 
             intervals.add(difference);
         }
@@ -162,9 +162,9 @@ public class TestActivity extends AppCompatActivity {
         Collections.sort(sortedIntervals); // in place sort
 
         double medianInterval = median(sortedIntervals);
-        Log.d(LOG_TAG, "Median interval: " + String.valueOf(medianInterval));
+        Log.d(TAG, "Median interval: " + String.valueOf(medianInterval));
 
-        Log.d(LOG_TAG, "Median BPM: " + String.valueOf(timeToBPM(medianInterval)));
+        Log.d(TAG, "Median BPM: " + String.valueOf(timeToBPM(medianInterval)));
     }
 
     private double median(ArrayList<Double> m) {
