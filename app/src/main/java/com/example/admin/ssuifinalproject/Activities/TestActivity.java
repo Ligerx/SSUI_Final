@@ -1,4 +1,4 @@
-package com.example.admin.ssuifinalproject;
+package com.example.admin.ssuifinalproject.Activities;
 
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -10,6 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.admin.ssuifinalproject.BPMAsyncTask;
+import com.example.admin.ssuifinalproject.ExtAudioRecorder;
+import com.example.admin.ssuifinalproject.R;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
