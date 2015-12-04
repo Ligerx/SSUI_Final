@@ -3,6 +3,7 @@ package com.example.admin.ssuifinalproject;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -14,7 +15,7 @@ import be.tarsos.dsp.onsets.ComplexOnsetDetector;
 import be.tarsos.dsp.onsets.OnsetHandler;
 
 // FIXME can I nudge the BPM towards the right #? Right now it sometimes is a multiple of the original.
-public class BeatAnalyzer {
+public class BeatAnalyzer implements Serializable{
 
     private static final String TAG = "BeatAnalyzer";
 
