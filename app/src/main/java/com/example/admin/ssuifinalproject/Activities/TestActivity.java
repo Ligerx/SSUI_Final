@@ -1,5 +1,6 @@
 package com.example.admin.ssuifinalproject.Activities;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -49,20 +50,30 @@ public class TestActivity extends AppCompatActivity {
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "Clicked record button");
-
-                if (isRecording) {
-                    isRecording = false;
-                    recordButton.setText(waitingText);
-                    stopRecording();
-                    showResults();
-                } else {
-                    isRecording = true;
-                    recordButton.setText(recordingText);
-                    startRecording();
-                }
+                onClickRecord();
             }
         });
+    }
+
+    private void onClickRecord() {
+        Log.d(TAG, "Clicked record button");
+
+        if (isRecording) {
+            isRecording = false;
+            recordButton.setText(waitingText);
+            stopRecording();
+//                    showResults();
+
+            // Transition to activity to display results
+            Intent i = new Intent(this, ResultsActivity.class);
+            i.putExtra("filePath", savedFileName);
+            startActivity(i);
+
+        } else {
+            isRecording = true;
+            recordButton.setText(recordingText);
+            startRecording();
+        }
     }
 
     private void startRecording() {
