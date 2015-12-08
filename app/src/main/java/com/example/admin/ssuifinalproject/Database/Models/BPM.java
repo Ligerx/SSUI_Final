@@ -9,10 +9,15 @@ public class BPM {
     private double time;
     private Date createdAt;
 
-    // constructor without ID
-    public BPM(int practiceRun_id, double time, int createdAt) {
+    // constructor without ID or time
+    public BPM(int practiceRun_id, double time) {
         this.practiceRun_id = practiceRun_id;
         this.time = time;
+    }
+
+    // constructor without ID
+    public BPM(int practiceRun_id, double time, int createdAt) {
+        this(practiceRun_id, time);
         this.createdAt = new Date(createdAt); // convert the time in millis to date object
     }
 

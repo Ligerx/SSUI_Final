@@ -13,6 +13,7 @@ import com.example.admin.ssuifinalproject.Database.Models.PracticeRun;
 import com.example.admin.ssuifinalproject.Database.Models.Song;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Basically the schema for the SQLite database
@@ -113,14 +114,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long createSong(Song song) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        int time = (int)System.currentTimeMillis();
+
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, song.getTitle());
         values.put(KEY_TARGET_BPM, song.getTargetBPM());
-        values.put(KEY_CREATED_AT, System.currentTimeMillis());
+        values.put(KEY_CREATED_AT, time);
 
         long id = db.insert(TABLE_SONG, null, values);
 
         song.setId((int) id);
+        song.setCreatedAt(new Date(time));
         return id;
     }
 
@@ -188,10 +192,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long createPracticeRun(PracticeRun practiceRun) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        int time = (int)System.currentTimeMillis();
+
         ContentValues values = new ContentValues();
         values.put(KEY_TARGET_BPM, practiceRun.getTargetBPM());
         values.put(KEY_MEDIAN_BPM, practiceRun.getMedianBPM());
-        values.put(KEY_CREATED_AT, System.currentTimeMillis());
+        values.put(KEY_CREATED_AT, time);
 
         long practiceRun_id = db.insert(TABLE_PRACTICE_RUN, null, values);
 
@@ -202,6 +208,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         practiceRun.setId((int) practiceRun_id);
+        practiceRun.setCreatedAt(new Date(time));
         return practiceRun_id;
     }
 
@@ -231,6 +238,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<PracticeRun> getAllPracticeRuns() {
         ArrayList<PracticeRun> practiceRuns = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + TABLE_PRACTICE_RUN;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                PracticeRun practiceRun = new PracticeRun(c.getInt(c.getColumnIndex(KEY_ID)),
+                        c.getInt(c.getColumnIndex(KEY_PRACTICE_RUN_ID)),
+                        c.getDouble(c.getColumnIndex(KEY_PR_TARGET_BPM)),
+                        c.getDouble(c.getColumnIndex(KEY_MEDIAN_BPM)),
+                        c.getInt(c.getColumnIndex(KEY_CREATED_AT)),
+                        getBeatDataForPracticeRun(c.getColumnIndex(KEY_ID))); // beat data from record id
+
+                practiceRuns.add(practiceRun);
+            }
+            while (c.moveToNext());
+        }
+
+        return practiceRuns;
+    }
+
+    public ArrayList<PracticeRun> findAllPracticeRunsBySong(int song_id) {
+        ArrayList<PracticeRun> practiceRuns = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_PRACTICE_RUN + " WHERE "
+                + KEY_ID + " = " + song_id;
 
         Log.e(LOG, selectQuery);
 
@@ -286,14 +321,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long createBPM(BPM bpm) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        int time = (int)System.currentTimeMillis();
+
         ContentValues values = new ContentValues();
         values.put(KEY_PRACTICE_RUN_ID, bpm.getPracticeRun_id());
         values.put(KEY_TIME, bpm.getTime());
-        values.put(KEY_CREATED_AT, System.currentTimeMillis());
+        values.put(KEY_CREATED_AT, time);
 
         long id = db.insert(TABLE_BPM, null, values);
 
         bpm.setId((int) id);
+        bpm.setCreatedAt(new Date(time));
         return id;
     }
 

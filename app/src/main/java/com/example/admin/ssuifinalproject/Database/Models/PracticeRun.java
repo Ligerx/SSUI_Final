@@ -13,13 +13,17 @@ public class PracticeRun {
 
     private BeatData beatData;
 
-    public PracticeRun(int song_id, double targetBPM, double medianBPM, int createdAt, BeatData beatData) {
+    public PracticeRun(int song_id, double targetBPM, double medianBPM, BeatData beatData) {
         this.song_id = song_id;
         this.targetBPM = targetBPM;
         this.medianBPM = medianBPM;
-        this.createdAt = new Date(createdAt); // convert the time in millis to date object
 
         this.beatData = beatData;
+    }
+
+    public PracticeRun(int song_id, double targetBPM, double medianBPM, int createdAt, BeatData beatData) {
+        this(song_id, targetBPM, medianBPM, beatData);
+        this.createdAt = new Date(createdAt); // convert the time in millis to date object
     }
 
     public PracticeRun(int id, int song_id, double targetBPM, double medianBPM, int createdAt, BeatData beatData) {

@@ -38,7 +38,7 @@ public class BPMAsyncTask extends AsyncTask<String, Void, BeatAnalyzer> {
         loading.setVisibility(View.GONE); // hide the loading spinner
         resultsContainer.setVisibility(View.VISIBLE); // show everything else
 
-        ArrayList<Double> bpm = beatAnalyzer.getBPMOverTime();
+        ArrayList<Double> bpm = beatAnalyzer.getBeatData().getBPMOverTime();
 
 
         ArrayList<Entry> bpmEntries = new ArrayList<>();

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/songItem" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="&apos;&apos;"
+        android:id="@+id/songTitle"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="# Practice Runs Recorded"
+        android:id="@+id/songItemText"
+        android:layout_marginRight="30dp"
+        android:layout_alignTop="@+id/practiceRunCount"
+        android:layout_toLeftOf="@+id/practiceRunCount" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="0"
+        android:id="@+id/practiceRunCount"
+        android:layout_marginRight="15dp"
+        android:layout_alignBottom="@+id/songTitle"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>
