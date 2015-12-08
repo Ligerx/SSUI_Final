@@ -13,14 +13,18 @@ public class PracticeRun {
 
     private BeatData beatData;
 
-    public PracticeRun(int id, int song_id, double targetBPM, double medianBPM, int createdAt, BeatData beatData) {
-        this.id = id;
+    public PracticeRun(int song_id, double targetBPM, double medianBPM, int createdAt, BeatData beatData) {
         this.song_id = song_id;
         this.targetBPM = targetBPM;
         this.medianBPM = medianBPM;
         this.createdAt = new Date(createdAt); // convert the time in millis to date object
 
         this.beatData = beatData;
+    }
+
+    public PracticeRun(int id, int song_id, double targetBPM, double medianBPM, int createdAt, BeatData beatData) {
+        this(song_id, targetBPM, medianBPM, createdAt, beatData);
+        this.id = id;
     }
 
     //// Getters and setters

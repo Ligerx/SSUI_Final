@@ -9,11 +9,15 @@ public class Song {
     private double targetBPM;
     private Date createdAt;
 
-    public Song(int id, String title, double targetBPM, int createdAt) {
-        this.id = id;
+    public Song(String title, double targetBPM, int createdAt) {
         this.title = title;
         this.targetBPM = targetBPM;
         this.createdAt = new Date(createdAt); // convert the time in millis to date object
+    }
+
+    public Song(int id, String title, double targetBPM, int createdAt) {
+        this(title, targetBPM, createdAt);
+        this.id = id;
     }
 
     //// Getters and setters

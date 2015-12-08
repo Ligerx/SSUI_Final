@@ -9,11 +9,17 @@ public class BPM {
     private double time;
     private Date createdAt;
 
-    public BPM(int id, int practiceRun_id, double time, int createdAt) {
-        this.id = id;
+    // constructor without ID
+    public BPM(int practiceRun_id, double time, int createdAt) {
         this.practiceRun_id = practiceRun_id;
         this.time = time;
         this.createdAt = new Date(createdAt); // convert the time in millis to date object
+    }
+
+    // constructor with ID
+    public BPM(int id, int practiceRun_id, double time, int createdAt) {
+        this(practiceRun_id, time, createdAt);
+        this.id = id;
     }
 
     //// Getters and setters
@@ -31,6 +37,22 @@ public class BPM {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPracticeRun_id(int practiceRun_id) {
+        this.practiceRun_id = practiceRun_id;
+    }
+
+    public void setTime(double time) {
+        this.time = time;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
 
