@@ -1,5 +1,7 @@
 package com.example.admin.ssuifinalproject.Database.Models;
 
+import com.example.admin.ssuifinalproject.BeatData;
+
 import java.util.Date;
 
 public class PracticeRun {
@@ -9,12 +11,16 @@ public class PracticeRun {
     private double medianBPM;
     private Date createdAt;
 
-    public PracticeRun(int id, int song_id, double targetBPM, double medianBPM, int createdAt) {
+    private BeatData beatData;
+
+    public PracticeRun(int id, int song_id, double targetBPM, double medianBPM, int createdAt, BeatData beatData) {
         this.id = id;
         this.song_id = song_id;
         this.targetBPM = targetBPM;
         this.medianBPM = medianBPM;
         this.createdAt = new Date(createdAt); // convert the time in millis to date object
+
+        this.beatData = beatData;
     }
 
     //// Getters and setters
@@ -56,5 +62,13 @@ public class PracticeRun {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public BeatData getBeatData() {
+        return beatData;
+    }
+
+    public void setBeatData(BeatData beatData) {
+        this.beatData = beatData;
     }
 }
