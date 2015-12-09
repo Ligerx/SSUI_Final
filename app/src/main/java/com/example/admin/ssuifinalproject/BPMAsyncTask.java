@@ -3,29 +3,23 @@ package com.example.admin.ssuifinalproject;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.LinearLayout;
 
-import com.github.mikephil.charting.charts.Chart;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
+import com.example.admin.ssuifinalproject.Database.DatabaseHelper;
+import com.example.admin.ssuifinalproject.Database.Models.BPM;
+import com.example.admin.ssuifinalproject.Database.Models.PracticeRun;
 
 import java.util.ArrayList;
 
 public class BPMAsyncTask extends AsyncTask<String, Void, BeatAnalyzer> {
 
     private Context context;
-    private LinearLayout loading;
-    private LinearLayout resultsContainer;
-    private Chart chart;
+    private int song_id;
+    private int targetBPM;
 
-    public BPMAsyncTask(Context context) {
+    public BPMAsyncTask(Context context, int song_id, int targetBPM) {
         this.context = context;
-        this.loading = (LinearLayout) ((Activity) context).findViewById(R.id.loading_placeholder);
-        this.resultsContainer = (LinearLayout) ((Activity) context).findViewById(R.id.results_container);
-        this.chart = (Chart) ((Activity) context).findViewById(R.id.chart);
+        this.song_id = song_id;
+        this.targetBPM = targetBPM;
     }
 
     protected BeatAnalyzer doInBackground(String... args) {
@@ -35,32 +29,22 @@ public class BPMAsyncTask extends AsyncTask<String, Void, BeatAnalyzer> {
     }
 
     protected void onPostExecute(BeatAnalyzer beatAnalyzer) {
-        loading.setVisibility(View.GONE); // hide the loading spinner
-        resultsContainer.setVisibility(View.VISIBLE); // show everything else
+        DatabaseHelper db = new DatabaseHelper(context);
+        BeatData beatData = beatAnalyzer.getBeatData();
 
-        ArrayList<Double> bpm = beatAnalyzer.getBeatData().getBPMOverTime();
+        ArrayList<Double> timings = beatData.getBeatTiming();
+        double medianBPM = beatData.getMedianBPM();
 
+        // Put this practice run in db
+        PracticeRun practiceRun = new PracticeRun(song_id, targetBPM, medianBPM, beatData);
+        int practiceRun_id = (int) db.createPracticeRun(practiceRun);
 
-        ArrayList<Entry> bpmEntries = new ArrayList<>();
-        ArrayList<String> xVals = new ArrayList<>();
-
-        // Add all bpm data points, time independent right now
-        for(int i = 0; i < bpm.size(); i++) {
-            Entry entry = new Entry(bpm.get(i).floatValue(), i);
-            bpmEntries.add(entry);
-
-            xVals.add(String.valueOf(i));
+        // add all the timings/bpm to db
+        for(double timing : timings) {
+            BPM bpm = new BPM(practiceRun_id, timing);
+            db.createBPM(bpm);
         }
 
-        LineDataSet bpmLine = new LineDataSet(bpmEntries, "BPM (no time yet)");
-        bpmLine.setAxisDependency(YAxis.AxisDependency.LEFT);
-
-        ArrayList<LineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(bpmLine);
-
-        LineData lineChart = new LineData(xVals, dataSets);
-
-        chart.setData(lineChart);
-        chart.invalidate(); // (re)draw
+        ((Activity) context).finish();
     }
 }
