@@ -58,7 +58,12 @@ public class SongListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // TODO?
+
+        // Force refresh of list
+        ArrayList<Song> updatedSongs = db.getAllSongs();
+        adapter.clear();
+        adapter.addAll(updatedSongs);
+        adapter.notifyDataSetChanged();
     }
 
     private void viewSongInfo(Song songClicked) {
