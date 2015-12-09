@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String LOG = "DatabaseHelper";
 
-    private static final int DATABASE_VERSION = 2; // bumped for missing file path
+    private static final int DATABASE_VERSION = 3; // bumped for missing file path, then to reset bad ids
     private static final String DATABASE_NAME = "KeepTheBeats"; // beats because angel beats reference
 
     // Table Names

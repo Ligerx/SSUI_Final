@@ -41,6 +41,8 @@ public class PracticeRunList extends AppCompatActivity {
 
         Log.d(TAG, "Currently viewing song id: " + song_id);
 
+//        if(song_id == -1) {return;}
+
         // Get models from db
         db = new DatabaseHelper(this);
         song = db.getSong(song_id);
@@ -91,7 +93,10 @@ public class PracticeRunList extends AppCompatActivity {
     }
 
     private void viewSinglePracticeRun(PracticeRun practiceRunClicked) {
-        // TODO
+        Intent viewPracticeRun = new Intent(PracticeRunList.this, PracticeRunActivity.class);
+        viewPracticeRun.putExtra("practiceRun_id", practiceRunClicked.getId());
+
+        startActivity(viewPracticeRun);
     }
 
     private void recordNewPracticeRun() {

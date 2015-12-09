@@ -70,6 +70,7 @@ public class SongListActivity extends AppCompatActivity {
         Intent practiceRunListActivity = new Intent(SongListActivity.this, PracticeRunList.class);
         practiceRunListActivity.putExtra("song_id", songClicked.getId());
 
+        Log.d("SongListActivity", String.valueOf(songClicked.getId()));
         startActivity(practiceRunListActivity);
     }
 

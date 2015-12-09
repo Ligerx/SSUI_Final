@@ -59,7 +59,7 @@ public class SongForm extends AppCompatActivity {
         if(title == null || title.equals("")) {
             return false;
         }
-        else if(bpmString == null || Integer.parseInt(bpmString) <= 0) {
+        else if(bpmString == null || bpmString.equals("") || Integer.parseInt(bpmString) <= 0) {
             return false;
         }
         else {
