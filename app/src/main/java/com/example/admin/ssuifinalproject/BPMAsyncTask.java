@@ -14,11 +14,13 @@ public class BPMAsyncTask extends AsyncTask<String, Void, BeatAnalyzer> {
 
     private Context context;
     private int song_id;
+    private String filePath;
     private int targetBPM;
 
-    public BPMAsyncTask(Context context, int song_id, int targetBPM) {
+    public BPMAsyncTask(Context context, int song_id, String filePath, int targetBPM) {
         this.context = context;
         this.song_id = song_id;
+        this.filePath = filePath;
         this.targetBPM = targetBPM;
     }
 
@@ -37,6 +39,7 @@ public class BPMAsyncTask extends AsyncTask<String, Void, BeatAnalyzer> {
 
         // Put this practice run in db
         PracticeRun practiceRun = new PracticeRun(song_id, targetBPM, medianBPM, beatData);
+        practiceRun.setFilePath(filePath); // was tacked on later cause I forgot
         int practiceRun_id = (int) db.createPracticeRun(practiceRun);
 
         // add all the timings/bpm to db

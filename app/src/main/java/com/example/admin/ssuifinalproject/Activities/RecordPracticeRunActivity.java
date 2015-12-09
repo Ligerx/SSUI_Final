@@ -127,6 +127,6 @@ public class RecordPracticeRunActivity extends AppCompatActivity {
     }
 
     private void processAudio() {
-        new BPMAsyncTask(this, song_id, targetBPM).execute(savedFileName);
+        new BPMAsyncTask(this, song_id, savedFileName, targetBPM).execute(savedFileName);
     }
 }
