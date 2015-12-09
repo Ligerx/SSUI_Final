@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.ResultsActivity" />
-        <activity android:name=".Activities.SongForm"></activity>
+        <activity android:name=".Activities.SongForm" />
+        <activity android:name=".Activities.PracticeRunList"></activity>
     </application>
 
 </manifest> <!-- <activity android:name=".Activities.SongListActivity" > -->

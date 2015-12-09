@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -37,6 +38,14 @@ public class SongListActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.songList);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Song songClicked = (Song) parent.getAdapter().getItem(position);
+                viewSongInfo(songClicked);
+            }
+        });
+
         Button newSongButton = (Button) findViewById(R.id.newSongButton);
         newSongButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +58,14 @@ public class SongListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // TODO?
+    }
 
+    private void viewSongInfo(Song songClicked) {
+        Intent practiceRunListActivity = new Intent(SongListActivity.this, PracticeRunList.class);
+        practiceRunListActivity.putExtra("song_id", songClicked.getId());
+
+        startActivity(practiceRunListActivity);
     }
 
     private void gotoNewSongForm() {
