@@ -17,7 +17,6 @@ public class PracticeRunAdapter extends ArrayAdapter {
         super(context, 0, practiceRuns);
     }
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
@@ -34,12 +33,8 @@ public class PracticeRunAdapter extends ArrayAdapter {
         TextView practiceRunMedianBPM = (TextView) convertView.findViewById(R.id.practiceRunMedianBPM);
 
         // Populate the data into the template view using the data object
-        practiceRunFileName.setText(); // FIXME EVERYTHING IS BROKEN
+        practiceRunFileName.setText(practiceRun.getFilePath());
         practiceRunMedianBPM.setText(String.valueOf(practiceRun.getMedianBPM()));
-
-        DatabaseHelper db = new DatabaseHelper(getContext());
-        int numPracticeRuns = db.findAllPracticeRunsBySong(id).size();
-        practiceRunCount.setText(String.valueOf(numPracticeRuns));
 
         // Return the completed view to render on screen
         return convertView;

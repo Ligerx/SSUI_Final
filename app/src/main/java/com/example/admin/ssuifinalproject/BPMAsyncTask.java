@@ -3,6 +3,7 @@ package com.example.admin.ssuifinalproject;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.admin.ssuifinalproject.Database.DatabaseHelper;
 import com.example.admin.ssuifinalproject.Database.Models.BPM;
@@ -11,6 +12,8 @@ import com.example.admin.ssuifinalproject.Database.Models.PracticeRun;
 import java.util.ArrayList;
 
 public class BPMAsyncTask extends AsyncTask<String, Void, BeatAnalyzer> {
+
+    String TAG = "BPMAsyncTask";
 
     private Context context;
     private int song_id;
@@ -41,6 +44,10 @@ public class BPMAsyncTask extends AsyncTask<String, Void, BeatAnalyzer> {
         PracticeRun practiceRun = new PracticeRun(song_id, targetBPM, medianBPM, beatData);
         practiceRun.setFilePath(filePath); // was tacked on later cause I forgot
         int practiceRun_id = (int) db.createPracticeRun(practiceRun);
+
+        Log.d(TAG, "practiceRun_id: " + String.valueOf(practiceRun_id));
+        Log.d(TAG, "song_id: " + practiceRun.getSong_id());
+        Log.d(TAG, "filePath: " + filePath);
 
         // add all the timings/bpm to db
         for(double timing : timings) {

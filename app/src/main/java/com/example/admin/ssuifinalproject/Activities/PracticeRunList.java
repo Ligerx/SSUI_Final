@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 public class PracticeRunList extends AppCompatActivity {
 
+    String TAG = "PracticeRunList";
+
     int NEW_PRACTICE_RUN = 5;
 
     Song song;
@@ -35,10 +37,15 @@ public class PracticeRunList extends AppCompatActivity {
         Intent intent = getIntent();
         int song_id = intent.getIntExtra("song_id", -1);
 
+        Log.d(TAG, "Currently viewing song id: " + song_id);
+
         // Get models from db
         DatabaseHelper db = new DatabaseHelper(this);
         song = db.getSong(song_id);
         practiceRuns = db.findAllPracticeRunsBySong(song_id);
+
+        Log.d(TAG, "song_id:" + String.valueOf(song_id));
+        Log.d(TAG, "practiceRuns size: " + String.valueOf(practiceRuns.size()));
 
         // Fill list adapter
         adapter = new PracticeRunAdapter(this, practiceRuns);
@@ -68,6 +75,12 @@ public class PracticeRunList extends AppCompatActivity {
                 recordNewPracticeRun();
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        adapter.notifyDataSetChanged();
     }
 
     private void viewSinglePracticeRun(PracticeRun practiceRunClicked) {

@@ -44,7 +44,7 @@ public class RecordPracticeRunActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         song_id = intent.getIntExtra("song_id", -1);
-        targetBPM = intent.getIntExtra("targetBPM", -1);
+        targetBPM = (int) intent.getDoubleExtra("targetBPM", -1);
 
         micImage = (ImageView) findViewById(R.id.micImage);
         processingSpinner = (ProgressBar) findViewById(R.id.processingSpinner);

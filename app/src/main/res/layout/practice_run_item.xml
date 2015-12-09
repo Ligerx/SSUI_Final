@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="# Practice Runs Recorded"
+        android:text="Median BPM"
         android:id="@+id/practiceRunText"
         android:layout_marginRight="31dp"
         android:layout_alignTop="@+id/practiceRunMedianBPM"
