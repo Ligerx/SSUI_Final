@@ -68,7 +68,10 @@ public class PracticeRunList extends AppCompatActivity {
 
         // Find ui elements
         TextView testText = (TextView) findViewById(R.id.testText);
+        TextView songTargetBPM = (TextView) findViewById(R.id.songTargetBPM);
+
         testText.setText(song.getTitle());
+        songTargetBPM.setText(String.valueOf(song.getTargetBPM()));
 
         // set new practice run button onclick listener
         Button newPracticeRunButton = (Button) findViewById(R.id.newPracticeRunButton);

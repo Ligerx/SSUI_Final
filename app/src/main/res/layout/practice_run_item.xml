@@ -5,9 +5,9 @@
 
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="&apos;&apos;"
         android:id="@+id/practiceRunFileName"
         android:layout_marginLeft="11dp"
@@ -15,24 +15,33 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Median BPM"
-        android:id="@+id/practiceRunText"
-        android:layout_marginRight="31dp"
-        android:layout_alignTop="@+id/practiceRunMedianBPM"
-        android:layout_toLeftOf="@+id/practiceRunMedianBPM" />
+        android:gravity="right"
+        android:layout_below="@+id/practiceRunFileName"
+        android:layout_centerHorizontal="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="0"
-        android:id="@+id/practiceRunMedianBPM"
-        android:layout_marginRight="28dp"
-        android:layout_alignBottom="@+id/practiceRunFileName"
-        android:layout_alignParentRight="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Median BPM"
+            android:id="@+id/practiceRunText"
+            android:layout_marginRight="31dp"
+            android:layout_alignTop="@+id/practiceRunMedianBPM"
+            android:layout_toLeftOf="@+id/practiceRunMedianBPM" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="0"
+            android:id="@+id/practiceRunMedianBPM"
+            android:layout_marginRight="28dp"
+            android:layout_alignBottom="@+id/practiceRunFileName"
+            android:layout_alignParentRight="true" />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.admin.ssuifinalproject.Activities.PracticeRunList"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,35 +19,35 @@
         android:id="@+id/testText"
         android:layout_gravity="center_horizontal" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/practiceRunListChart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="25dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
+            android:text="Target BPM:"
             android:id="@+id/textView8" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/textView7" />
+            android:text="0"
+            android:id="@+id/songTargetBPM" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -69,7 +70,8 @@
         android:id="@+id/practiceRunList"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:headerDividersEnabled="false" />
+        android:headerDividersEnabled="false"
+        android:layout_weight="0.68" />
 
     <Button
         android:layout_width="wrap_content"
@@ -77,6 +79,8 @@
         android:text="Record a practice run"
         android:id="@+id/newPracticeRunButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp" />
 
 </LinearLayout>

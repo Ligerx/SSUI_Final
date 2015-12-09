@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.admin.ssuifinalproject.Database.Models.PracticeRun;
 import com.example.admin.ssuifinalproject.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PracticeRunAdapter extends ArrayAdapter {
@@ -33,8 +34,9 @@ public class PracticeRunAdapter extends ArrayAdapter {
         TextView practiceRunMedianBPM = (TextView) convertView.findViewById(R.id.practiceRunMedianBPM);
 
         // Populate the data into the template view using the data object
-        practiceRunFileName.setText(practiceRun.getFilePath());
-        practiceRunMedianBPM.setText(String.valueOf(practiceRun.getMedianBPM()));
+        practiceRunFileName.setText(practiceRun.getFileName());
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        practiceRunMedianBPM.setText(String.valueOf(twoDForm.format(practiceRun.getMedianBPM())));
 
         // Return the completed view to render on screen
         return convertView;

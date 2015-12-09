@@ -51,7 +51,7 @@ public class PracticeRunActivity extends AppCompatActivity {
         practiceRunBPM.setText("Median BPM: " + practiceRun.getMedianBPM());
 
         // setup the chart
-        new AsyncChartSetter(practiceRunChart).execute(practiceRun.getBeatData());
+        new AsyncChartSetter(practiceRunChart, practiceRun.getTargetBPM()).execute(practiceRun.getBeatData());
 
         //media player stuff goes here
         player = new MediaPlayer();
