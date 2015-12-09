@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/textView11"
+        android:id="@+id/practiceRunFileName"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -22,7 +22,7 @@
         android:id="@+id/practiceRunChart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView11"
+        android:layout_below="@+id/practiceRunFileName"
         android:layout_alignParentLeft="true" />
 
     <TextView
@@ -30,15 +30,16 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
-        android:id="@+id/textView12"
+        android:id="@+id/practiceRunBPM"
         android:layout_below="@+id/practiceRunChart"
         android:layout_centerHorizontal="true" />
 
-    <MediaController
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/mediaController"
-        android:layout_below="@+id/textView12"
+        android:text="Listen to recording"
+        android:id="@+id/practiceRunPlayButton"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

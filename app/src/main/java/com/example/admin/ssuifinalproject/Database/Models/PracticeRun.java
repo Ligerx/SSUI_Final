@@ -32,6 +32,12 @@ public class PracticeRun {
         this.id = id;
     }
 
+
+
+    public String getFileName() {
+        return filePath.substring(filePath.lastIndexOf("/")+1);
+    }
+
     //// Getters and setters
     public int getId() {
         return id;
