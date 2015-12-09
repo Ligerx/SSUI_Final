@@ -14,6 +14,10 @@ import com.example.admin.ssuifinalproject.R;
 
 public class PracticeRunList extends AppCompatActivity {
 
+    int NEW_PRACTICE_RUN = 5;
+
+    Song song;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +27,7 @@ public class PracticeRunList extends AppCompatActivity {
         int song_id = intent.getIntExtra("song_id", -1);
 
         DatabaseHelper db = new DatabaseHelper(this);
-        Song song = db.getSong(song_id);
+        song = db.getSong(song_id);
 
         TextView testText = (TextView) findViewById(R.id.testText);
         testText.setText(song.getTitle());
@@ -33,7 +37,16 @@ public class PracticeRunList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("Practice run", "on click. working!");
+                recordNewPracticeRun();
             }
         });
+    }
+
+    private void recordNewPracticeRun() {
+        Intent newPracticeRun = new Intent(PracticeRunList.this, RecordPracticeRunActivity.class);
+        newPracticeRun.putExtra("song_id", song.getId());
+        newPracticeRun.putExtra("targetBPM", song.getTargetBPM());
+
+        startActivityForResult(newPracticeRun, NEW_PRACTICE_RUN);
     }
 }

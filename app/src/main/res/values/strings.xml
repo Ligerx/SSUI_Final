@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SSUIFinalProject</string>
+
+    <string name="beforeRecording">Press to start recording</string>
+    <string name="isRecording">Press again to end the recording</string>
+    <string name="processingRecording">Processing...</string>
+
 </resources>
