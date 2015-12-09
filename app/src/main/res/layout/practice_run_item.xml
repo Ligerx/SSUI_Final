@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/songItem"
-    android:paddingBottom="10dp">
+    android:layout_height="match_parent">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="&apos;&apos;"
-        android:id="@+id/songTitle"
+        android:id="@+id/practiceRunFileName"
         android:layout_marginLeft="11dp"
         android:layout_marginTop="8dp"
         android:layout_alignParentTop="true"
@@ -21,18 +20,19 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="# Practice Runs Recorded"
-        android:id="@+id/songItemText"
-        android:layout_marginRight="30dp"
-        android:layout_alignTop="@+id/practiceRunCount"
-        android:layout_toLeftOf="@+id/practiceRunCount" />
+        android:id="@+id/practiceRunText"
+        android:layout_marginRight="31dp"
+        android:layout_alignTop="@+id/practiceRunMedianBPM"
+        android:layout_toLeftOf="@+id/practiceRunMedianBPM" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="0"
-        android:id="@+id/practiceRunCount"
-        android:layout_marginRight="15dp"
-        android:layout_alignBottom="@+id/songTitle"
+        android:id="@+id/practiceRunMedianBPM"
+        android:layout_marginRight="28dp"
+        android:layout_alignBottom="@+id/practiceRunFileName"
         android:layout_alignParentRight="true" />
+
 </RelativeLayout>

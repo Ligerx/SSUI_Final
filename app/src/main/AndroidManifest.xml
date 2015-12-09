@@ -23,7 +23,8 @@
         <activity android:name=".Activities.ResultsActivity" />
         <activity android:name=".Activities.SongForm" />
         <activity android:name=".Activities.PracticeRunList" />
-        <activity android:name=".Activities.RecordPracticeRunActivity"></activity>
+        <activity android:name=".Activities.RecordPracticeRunActivity" />
+        <activity android:name=".Activities.PracticeRunActivity"></activity>
     </application>
 
 </manifest> <!-- <activity android:name=".Activities.SongListActivity" > -->
