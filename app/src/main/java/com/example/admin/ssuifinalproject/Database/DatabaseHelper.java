@@ -271,27 +271,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<PracticeRun> findAllPracticeRunsBySong(int song_id) {
-        String allQuery = "SELECT  * FROM " + TABLE_PRACTICE_RUN;
-        SQLiteDatabase db1 = this.getReadableDatabase();
-        Cursor c1 = db1.rawQuery(allQuery, null);
-
-        if (c1.moveToFirst()) {
-            do {
-                Log.d("DATABASE FIND RUNS 1", String.valueOf(c1.getInt(c1.getColumnIndex(KEY_ID))));
-                Log.d("DATABASE FIND RUNS 2", String.valueOf(c1.getInt(c1.getColumnIndex(KEY_SONG_ID))));
-                Log.d("DATABASE FIND RUNS 3", String.valueOf(c1.getDouble(c1.getColumnIndex(KEY_PR_TARGET_BPM))));
-                Log.d("DATABASE FIND RUNS 4", String.valueOf(c1.getDouble(c1.getColumnIndex(KEY_MEDIAN_BPM))));
-                Log.d("DATABASE FIND RUNS 5", String.valueOf(c1.getInt(c1.getColumnIndex(KEY_CREATED_AT))));
-                Log.d("DATABASE FIND RUNS 6", String.valueOf(getBeatDataForPracticeRun(c1.getColumnIndex(KEY_ID))));
-                Log.d("DATABASE FIND RUNS 7", c1.getString(c1.getColumnIndex((KEY_FILE_PATH))));
-
-            }
-            while (c1.moveToNext());
-        }
-
-
-
-
         ArrayList<PracticeRun> practiceRuns = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + TABLE_PRACTICE_RUN + " WHERE "
                 + KEY_SONG_ID + " = " + song_id;

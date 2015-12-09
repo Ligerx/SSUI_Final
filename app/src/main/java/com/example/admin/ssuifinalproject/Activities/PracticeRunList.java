@@ -24,9 +24,11 @@ public class PracticeRunList extends AppCompatActivity {
 
     int NEW_PRACTICE_RUN = 5;
 
+    int song_id;
     Song song;
     ArrayList<PracticeRun> practiceRuns;
     PracticeRunAdapter adapter;
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +37,12 @@ public class PracticeRunList extends AppCompatActivity {
 
         // Retrieve data from intent
         Intent intent = getIntent();
-        int song_id = intent.getIntExtra("song_id", -1);
+        song_id = intent.getIntExtra("song_id", -1);
 
         Log.d(TAG, "Currently viewing song id: " + song_id);
 
         // Get models from db
-        DatabaseHelper db = new DatabaseHelper(this);
+        db = new DatabaseHelper(this);
         song = db.getSong(song_id);
         practiceRuns = db.findAllPracticeRunsBySong(song_id);
 
@@ -80,6 +82,11 @@ public class PracticeRunList extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+
+        // rerun the query?
+        practiceRuns = db.findAllPracticeRunsBySong(song_id);
+        adapter.clear();
+        adapter.addAll(practiceRuns);
         adapter.notifyDataSetChanged();
     }
 
