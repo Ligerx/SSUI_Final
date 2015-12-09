@@ -153,7 +153,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Song> getAllSongs() {
         ArrayList<Song> songs = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TABLE_SONG;
+        String selectQuery = "SELECT  * FROM " + TABLE_SONG
+                + " ORDER BY " + KEY_TITLE;
 
         Log.e(LOG, selectQuery);
 
@@ -243,7 +244,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<PracticeRun> getAllPracticeRuns() {
         ArrayList<PracticeRun> practiceRuns = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TABLE_PRACTICE_RUN;
+        String selectQuery = "SELECT  * FROM " + TABLE_PRACTICE_RUN
+                + " ORDER BY " + KEY_CREATED_AT + " DESC";
 
         Log.e(LOG, selectQuery);
 
@@ -273,7 +275,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<PracticeRun> findAllPracticeRunsBySong(int song_id) {
         ArrayList<PracticeRun> practiceRuns = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + TABLE_PRACTICE_RUN + " WHERE "
-                + KEY_SONG_ID + " = " + song_id;
+                + KEY_SONG_ID + " = " + song_id
+                + " ORDER BY " + KEY_CREATED_AT + " DESC";
 
         Log.e(LOG, selectQuery);
 
