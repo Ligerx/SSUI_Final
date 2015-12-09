@@ -43,6 +43,8 @@ public class BeatData {
     }
 
     private double median(ArrayList<Double> m) {
+        if(m.size() == 0) { return -1; }
+
         int middle = m.size()/2;
         if (m.size()%2 == 1) {
             return m.get(middle);

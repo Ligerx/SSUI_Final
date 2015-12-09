@@ -74,6 +74,7 @@ public class RecordPracticeRunActivity extends AppCompatActivity {
             processingSpinner.setVisibility(View.VISIBLE);
 
             stopRecording();
+            processAudio();
         }
     }
 
