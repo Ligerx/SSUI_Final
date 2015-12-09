@@ -7,6 +7,7 @@ import java.util.Date;
 public class PracticeRun {
     private int id;
     private int song_id;
+    private String filePath; // MAKE SURE TO SET FILE PATH
     private double targetBPM;
     private double medianBPM;
     private Date createdAt;
@@ -78,5 +79,13 @@ public class PracticeRun {
 
     public void setBeatData(BeatData beatData) {
         this.beatData = beatData;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

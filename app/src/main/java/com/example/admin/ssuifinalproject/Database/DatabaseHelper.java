@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String LOG = "DatabaseHelper";
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2; // bumped for missing file path
     private static final String DATABASE_NAME = "KeepTheBeats"; // beats because angel beats reference
 
     // Table Names
@@ -40,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // PRACTICE_RUN Table - column names
     private static final String KEY_SONG_ID = "song_id";
+    private static final String KEY_FILE_PATH = "file_path";
     private static final String KEY_PR_TARGET_BPM = "target_bpm"; // conflicting variable name, had to rename
     private static final String KEY_MEDIAN_BPM = "median_bpm";
 
@@ -63,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_PRACTICE_RUN + "("
                     + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + KEY_SONG_ID + " INTEGER,"
+                    + KEY_FILE_PATH + " TEXT,"
                     + KEY_PR_TARGET_BPM + " REAL,"
                     + KEY_MEDIAN_BPM + " REAL,"
                     + KEY_CREATED_AT + " INTEGER" + ")";
@@ -195,6 +197,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int time = (int)System.currentTimeMillis();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_FILE_PATH, practiceRun.getFilePath());
         values.put(KEY_TARGET_BPM, practiceRun.getTargetBPM());
         values.put(KEY_MEDIAN_BPM, practiceRun.getMedianBPM());
         values.put(KEY_CREATED_AT, time);
@@ -232,6 +235,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 c.getInt(c.getColumnIndex(KEY_CREATED_AT)),
                 getBeatDataForPracticeRun(id)); // beat data
 
+        practiceRun.setFilePath(c.getString(c.getColumnIndex((KEY_FILE_PATH)))); // was tacked on later cause I forgot
+
         return practiceRun;
     }
 
@@ -253,6 +258,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         c.getDouble(c.getColumnIndex(KEY_MEDIAN_BPM)),
                         c.getInt(c.getColumnIndex(KEY_CREATED_AT)),
                         getBeatDataForPracticeRun(c.getColumnIndex(KEY_ID))); // beat data from record id
+
+                practiceRun.setFilePath(c.getString(c.getColumnIndex((KEY_FILE_PATH)))); // tacked on cause I forgot
 
                 practiceRuns.add(practiceRun);
             }
@@ -282,6 +289,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         c.getInt(c.getColumnIndex(KEY_CREATED_AT)),
                         getBeatDataForPracticeRun(c.getColumnIndex(KEY_ID))); // beat data from record id
 
+                practiceRun.setFilePath(c.getString(c.getColumnIndex((KEY_FILE_PATH)))); // tacked on cause I forgot
+
                 practiceRuns.add(practiceRun);
             }
             while (c.moveToNext());
@@ -306,6 +315,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_FILE_PATH, practiceRun.getFilePath());
         values.put(KEY_SONG_ID, practiceRun.getSong_id());
         values.put(KEY_PR_TARGET_BPM, practiceRun.getTargetBPM());
         values.put(KEY_MEDIAN_BPM, practiceRun.getMedianBPM());
