@@ -153,6 +153,7 @@ public class ExtAudioRecorder
             {
                 Log.e(ExtAudioRecorder.class.getName(), "Error occured in updateListener, recording is aborted");
                 //stop();
+                e.printStackTrace();
             }
         }
 

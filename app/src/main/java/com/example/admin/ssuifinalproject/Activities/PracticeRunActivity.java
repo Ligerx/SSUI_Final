@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.admin.ssuifinalproject.AsyncChartSetter;
 import com.example.admin.ssuifinalproject.Database.DatabaseHelper;
 import com.example.admin.ssuifinalproject.Database.Models.PracticeRun;
 import com.example.admin.ssuifinalproject.R;
@@ -48,6 +49,9 @@ public class PracticeRunActivity extends AppCompatActivity {
 
         practiceRunFileName.setText(practiceRun.getFileName());
         practiceRunBPM.setText("Median BPM: " + practiceRun.getMedianBPM());
+
+        // setup the chart
+        new AsyncChartSetter(practiceRunChart).execute(practiceRun.getBeatData());
 
         //media player stuff goes here
         player = new MediaPlayer();
